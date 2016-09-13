@@ -17,7 +17,7 @@ The code above is obviously not dynamic. But with this include, that becomes (wh
 		count[0] ++;
 	}
 
-That's just one way of converting that specific example to be dynamic, there are plenty more. It also has many other uses. Please check the example script to see the other functions this include has, and examples of each one.
+That's just one way of converting that specific example to be dynamic, there are plenty more. It also has many other uses (such as loading server settings using the enumerator functions, or if necessary the global split function). Please check the example script to see the other functions this include has, and examples of each one.
 
 The example script (dynamic_string_splitter_example.amx) and the include (dynamic_string_splitter.inc) requires:
 * SSCANF: http://forum.sa-mp.com/showthread.php?t=602923
