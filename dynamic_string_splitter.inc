@@ -25,178 +25,188 @@
 	#error "SSCANF could not be found"
 #endif
 
-#if !defined strcpy
-	#define strcpy(%0,%1,%2) strcat((%0[0] = '\0', %0), %1, %2)
-#endif
-
 // ** FUNCTIONS
 
-stock split_integers(string_to_split[], const separator[], integers[])
+stock SplitIntegers(const string_to_split[], const separator[], integers[], sscanf_format[], const size_of_1 = sizeof(integers), const size_of_2 = sizeof(sscanf_format))
 {
-	new _format[20], count = 1;
-	for(new i = 0, j = strlen(string_to_split); i <= j; i ++)
+	if(separator[1] != EOS)
 	{
-		if(string_to_split[i] == separator[0])
-		{
-			string_to_split[i] = ' ';
-			count ++;
-		}
+		print("Dynamic String Splitter | SplitIntegers: Invalid separator (Minimum and maximum length: 1)");
 	}
+	else
+	{
+		format(sscanf_format, size_of_2, "p<%c>a<i>[%d]", separator, size_of_1);
 
-	format(_format, sizeof(_format), "a<i>[%d]", count);
-
-	sscanf(string_to_split, _format, integers);
-	return count;
+		sscanf(string_to_split, sscanf_format, integers);
+	}
+	return 1;
 }
 
-stock split_floats(string_to_split[], const separator[], Float:floats[])
+stock SplitIntegers_Enum(const string_to_split[], const separator[], integers[], const enum_format[], sscanf_format[], const size_of = sizeof(sscanf_format))
 {
-	new _format[20], count = 1;
-	for(new i = 0, j = strlen(string_to_split); i <= j; i ++)
+	if(separator[1] != EOS)
 	{
-		if(string_to_split[i] == separator[0])
-		{
-			string_to_split[i] = ' ';
-			count ++;
-		}
+		print("Dynamic String Splitter | SplitIntegers_Enum: Invalid separator (Minimum and maximum length: 1)");
 	}
+	else
+	{
+		format(sscanf_format, size_of, "p<%c>e<%s>", separator, enum_format);
 
-	format(_format, sizeof(_format), "a<f>[%d]", count);
-
-	sscanf(string_to_split, _format, floats);
-	return count;
+		sscanf(string_to_split, sscanf_format, integers);
+	}
+	return 1;
 }
 
-stock split_strings(string_to_split[], const separator[], strings[][], size_of = sizeof(strings[]))
+stock SplitIntegers_IndexesEnum(const string_to_split[], const separator[], integers[][], const enum_format[], const values_used_format[], sscanf_format[], const size_of_1 = sizeof(integers), const size_of_2 = sizeof(sscanf_format))
 {
-	new _format[22], count = 1;
-	for(new i = 0, j = strlen(string_to_split); i <= j; i ++)
+	if(separator[1] != EOS)
 	{
-		if(string_to_split[i] == ' ')
-		{
-			strins(string_to_split, "\\", i, size_of);
+		print("Dynamic String Splitter | SplitIntegers_IndexesEnum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of_2, "p<%c>e<{}%s>", separator, enum_format);
 
-			i ++;
-			j ++;
-		}
-		else if(string_to_split[i] == separator[0])
+		for(new i = 0; i < size_of_1; i ++)
 		{
-			string_to_split[i] = ' ';
-			count ++;
+			sscanf(string_to_split, sscanf_format, integers[i]);
+
+			strins(sscanf_format, values_used_format, 7, size_of_2);
 		}
 	}
-
-	format(_format, sizeof(_format), "a<s[75]>[%d]", count);
-
-	sscanf(string_to_split, _format, strings);
-	return count;
+	return 1;
 }
 
-stock split_integers_enum(string_to_split[], const separator[], integers[], size_of_enum = sizeof(integers))
+stock SplitFloats(const string_to_split[], const separator[], Float:floats[], sscanf_format[], const size_of_1 = sizeof(floats), const size_of_2 = sizeof(sscanf_format))
 {
-	new _format[50] = "e<", index = 2, count = 1;
-	for(new i = 0, j = strlen(string_to_split); i <= j; i ++)
+	if(separator[1] != EOS)
 	{
-		if(string_to_split[i] == separator[0])
-		{
-			string_to_split[i] = ' ';
-			count ++;
-		}
+		print("Dynamic String Splitter | SplitFloats: Invalid separator (Minimum and maximum length: 1)");
 	}
-
-	for(new i = 0; i < size_of_enum; i ++)
+	else
 	{
-		_format[index ++] = 'i';
+		format(sscanf_format, size_of_2, "p<%c>a<f>[%d]", separator, size_of_1);
+
+		sscanf(string_to_split, sscanf_format, floats);
 	}
-
-	_format[index] = '>';
-
-	sscanf(string_to_split, _format, integers);
-	return count;
+	return 1;
 }
 
-stock split_floats_enum(string_to_split[], const separator[], Float:floats[], size_of_enum = sizeof(floats))
+stock SplitFloats_Enum(const string_to_split[], const separator[], Float:floats[], const enum_format[], sscanf_format[], const size_of = sizeof(sscanf_format))
 {
-	new _format[50] = "e<", index = 2, count = 1;
-	for(new i = 0, j = strlen(string_to_split); i <= j; i ++)
+	if(separator[1] != EOS)
 	{
-		if(string_to_split[i] == separator[0])
-		{
-			string_to_split[i] = ' ';
-			count ++;
-		}
+		print("Dynamic String Splitter | SplitFloats_Enum: Invalid separator (Minimum and maximum length: 1)");
 	}
-
-	for(new i = 0; i < size_of_enum; i ++)
+	else
 	{
-		_format[index ++] = 'f';
+		format(sscanf_format, size_of, "p<%c>e<%s>", separator, enum_format);
+
+		sscanf(string_to_split, sscanf_format, floats);
 	}
-
-	_format[index] = '>';
-
-	sscanf(string_to_split, _format, floats);
-	return count;
+	return 1;
 }
 
-stock split(const string_to_split[], const separator[], integers[], Float:floats[], strings[][], data_type_count[])
+stock SplitFloats_IndexesEnum(const string_to_split[], const separator[], Float:floats[][], const enum_format[], const values_used_format[], sscanf_format[], const size_of_1 = sizeof(floats), const size_of_2 = sizeof(sscanf_format))
 {
-	new pos, last_pos, temp[30];
-	for(;;)
+	if(separator[1] != EOS)
 	{
-		last_pos = pos;
-		pos = strfind(string_to_split, separator, true, (pos + 1));
+		print("Dynamic String Splitter | SplitFloats_IndexesEnum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of_2, "p<%c>e<{}%s>", separator, enum_format);
 
-		strmid(temp, string_to_split, ((!last_pos) ? (0) : (last_pos + 1)), pos);
-
-		if(sscanf(temp, "i", integers[data_type_count[0]]))
+		for(new i = 0; i < size_of_1; i ++)
 		{
-			if(sscanf(temp, "f", floats[data_type_count[1]]))
-			{
-				if(temp[0] != EOS)
-				{
-					strcpy(strings[data_type_count[2]], temp, 30);
+			sscanf(string_to_split, sscanf_format, floats[i]);
 
-					data_type_count[2] ++;
-				}
-			}
-			else
-			{
-				data_type_count[1] ++;
-			}
+			strins(sscanf_format, values_used_format, 7, size_of_2);
 		}
-		else
+	}
+	return 1;
+}
+
+stock SplitStrings(const string_to_split[], const separator[], strings[][], sscanf_format[], const size_of_1 = sizeof(strings), const size_of_2 = sizeof(strings[]), const size_of_3 = sizeof(sscanf_format))
+{
+	if(separator[1] != EOS)
+	{
+		print("Dynamic String Splitter | SplitStrings: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of_3, "p<%c>a<s[%d]>[%d]", separator, size_of_2, size_of_1);
+
+		sscanf(string_to_split, sscanf_format, strings);
+	}
+	return 1;
+}
+
+stock SplitStrings_Enum(const string_to_split[], const separator[], strings[], const enum_format[], sscanf_format[], const size_of = sizeof(sscanf_format))
+{
+	if(separator[1] != EOS)
+	{
+		print("Dynamic String Splitter | SplitStrings_Enum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of, "p<%c>e<%s>", separator, enum_format);
+
+		sscanf(string_to_split, sscanf_format, strings);
+	}
+	return 1;
+}
+
+stock SplitStrings_IndexesEnum(const string_to_split[], const separator[], strings[][], const enum_format[], const values_used_format[], sscanf_format[], const size_of_1 = sizeof(strings), const size_of_2 = sizeof(sscanf_format), const size_of_3 = sizeof(string_to_split))
+{
+	if(separator[1] != EOS)
+	{
+		print("Dynamic String Splitter | SplitStrings_IndexesEnum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of_2, "p<%c>e<{}%s{s[%d]}>", separator, enum_format, size_of_3);
+
+		for(new i = 0; i < size_of_1; i ++)
 		{
-			data_type_count[0] ++;
+			sscanf(string_to_split, sscanf_format, strings[i]);
+
+			strins(sscanf_format, values_used_format, 7, size_of_2);
 		}
+	}
+	return 1;
+}
 
-		if(pos == -1)
+stock Split_Enum(const string_to_split[], const separator[], array[], const enum_format[], sscanf_format[], const size_of = sizeof(sscanf_format))
+{
+	if(separator[1] != EOS)
+	{
+		print("Dynamic String Splitter | Split_Enum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of, "p<%c>e<%s>", separator, enum_format);
+
+		sscanf(string_to_split, sscanf_format, array);
+	}
+	return 1;
+}
+
+stock Split_IndexesEnum(const string_to_split[], const separator[], array[][], const enum_format[], const values_used_format[], sscanf_format[], const size_of_1 = sizeof(array), const size_of_2 = sizeof(sscanf_format), const size_of_3 = sizeof(string_to_split))
+{
+	if(separator[1] != EOS)
+	{
+		print("Dynamic String Splitter | SplitStrings_IndexesEnum: Invalid separator (Minimum and maximum length: 1)");
+	}
+	else
+	{
+		format(sscanf_format, size_of_2, "p<%c>e<{}%s{s[%d]}>", separator, enum_format, size_of_3);
+
+		for(new i = 0; i < size_of_1; i ++)
 		{
-			if(data_type_count[0] > 1 || data_type_count[1] > 1 || data_type_count[2] > 1)
-			{
-				strmid(temp, string_to_split, (last_pos + 1), strlen(string_to_split));
+			sscanf(string_to_split, sscanf_format, array[i]);
 
-				if(sscanf(temp, "i", integers[data_type_count[0]]))
-				{
-					if(sscanf(temp, "f", floats[data_type_count[1]]))
-					{
-						if(temp[0] != EOS)
-						{
-							strcpy(strings[data_type_count[2]], temp, 30);
-
-							data_type_count[2] ++;
-						}
-					}
-					else
-					{
-						data_type_count[1] ++;
-					}
-				}
-				else
-				{
-					data_type_count[0] ++;
-				}
-			}
-			break;
+			strins(sscanf_format, values_used_format, 7, size_of_2);
 		}
 	}
 	return 1;

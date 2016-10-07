@@ -1,222 +1,232 @@
-/*
-	Dynamic String Splitter ~ Kevin-Reinke
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
 // ** INCLUDES
 
 #include <a_samp>
 #include <sscanf2>
 #include <dynamic_string_splitter>
 
+// ** DIRECTIVES
+
+#pragma dynamic 100000
+
 // ** MAIN
 
 main()
 {
 	print("Loaded \"dynamic_string_splitter_example.amx\".");
+
+	// ***** SplitIntegers *****
+
+	/*new string_to_split[] = "5|2|3|5|7|8|2|2|3|4|5|6|77|12", integers[14], sscanf_format[13];
+	SplitIntegers(string_to_split, "|", integers, sscanf_format);
+
+	for(new i = 0; i < sizeof(integers); i ++)
+	{
+		printf("%d", integers[i]);
+	}*/
+
+	// ***** SplitIntegers_Enum *****
+
+	/*new string_to_split[] = "5|3|5|4", sscanf_format[14];
+
+	enum eIntegers
+	{
+		integer_1,
+		integer_2,
+		integer_3,
+		integer_4,
+		integer_5
+	};
+
+	new aIntegers[eIntegers];
+
+	SplitIntegers_Enum(string_to_split, "|", aIntegers, "i-iiii", sscanf_format);
+
+	for(new i = 0; i < _:eIntegers; i ++)
+	{
+		printf("%d", aIntegers[eIntegers:i]);
+	}*/
+
+	// ***** SplitIntegers_IndexesEnum *****
+
+	/*new string_to_split[] = "5|2|3|5|7|8|2|2|3|4|5|6|77|12|5|2|3|5|7|8|2|2|3|4|5|6|77|12", sscanf_format[40];
+
+	enum eIntegers
+	{
+		integer_1,
+		integer_2,
+		integer_3
+	};
+
+	new aIntegers[14][eIntegers];
+
+	SplitIntegers_IndexesEnum(string_to_split, "|", aIntegers, "i-ii", "ii", sscanf_format);
+
+	for(new i = 0; i < sizeof(aIntegers); i ++)
+	{
+		for(new j = 0; j < _:eIntegers; j ++)
+		{
+			printf("i: %d, j: %d - %d", i, j, aIntegers[i][eIntegers:j]);
+		}
+	}*/
+
+	// ***** SplitFloats *****
+
+	/*new string_to_split[] = "5.0|2.0|3.0|5.0|7.0|8.0|2.0|2.0|3.0|4.0|5.0|6.0|77.0|12.0", Float:floats[14], sscanf_format[13];
+	SplitFloats(string_to_split, "|", floats, sscanf_format);
+
+	for(new i = 0; i < sizeof(floats); i ++)
+	{
+		printf("%.2f", floats[i]);
+	}*/
+
+	// ***** SplitFloats_Enum *****
+
+	/*new string_to_split[] = "5.0|3.0|5.0|4.0", sscanf_format[14];
+
+	enum eFloats
+	{
+		float_1,
+		float_2,
+		float_3,
+		float_4,
+		float_5
+	};
+
+	new Float:aFloats[eFloats];
+
+	SplitFloats_Enum(string_to_split, "|", aFloats, "f-ffff", sscanf_format);
+
+	for(new i = 0; i < _:eFloats; i ++)
+	{
+		printf("%.2f", aFloats[eFloats:i]);
+	}*/
+
+	// ***** SplitFloats_IndexesEnum *****
+
+	/*new string_to_split[] = "5|2|3|5|7|8|2|2|3|4|5|6|77|12|5|2|3|5|7|8|2|2|3|4|5|6|77|12", sscanf_format[40];
+
+	enum eFloats
+	{
+		float_1,
+		float_2,
+		float_3
+	};
+
+	new Float:aFloats[14][eFloats];
+
+	SplitFloats_IndexesEnum(string_to_split, "|", aFloats, "f-ff", "ff", sscanf_format);
+
+	for(new i = 0; i < sizeof(aFloats); i ++)
+	{
+		for(new j = 0; j < _:eFloats; j ++)
+		{
+			printf("i: %d, j: %d - %.2f", i, j, aFloats[i][eFloats:j]);
+		}
+	}*/
+
+	// ***** SplitStrings *****
+
+	/*new string_to_split[] = "hi there|yo man sup|hello", strings[3][11], sscanf_format[16];
+	SplitStrings(string_to_split, "|", strings, sscanf_format);
+
+	for(new i = 0; i < sizeof(strings); i ++)
+	{
+		printf("%s", strings[i]);
+	}*/
+
+	// ***** SplitStrings_Enum *****
+
+	/*new string_to_split[] = "hi there|yo man sup|hello", sscanf_format[26];
+
+	enum eStrings
+	{
+		string_1[9],
+		string_2[5],
+		string_3[11],
+		string_4[6]
+	};
+
+	new aStrings[eStrings];
+
+	SplitStrings_Enum(string_to_split, "|", aStrings, "s[9]-s[5]s[11]s[6]", sscanf_format);
+
+	printf("%s", aStrings[string_1]);
+	printf("%s", aStrings[string_2]);
+	printf("%s", aStrings[string_3]);
+	printf("%s", aStrings[string_4]);*/
+
+	// ***** SplitStrings_IndexesEnum *****
+
+	/*new string_to_split[] = "aa|bb|cc|dd|ee|ff|gg|hh|ii|jj", sscanf_format[62];
+
+	enum eStrings
+	{
+		string_1[3],
+		string_2[3],
+		string_3[3]
+	};
+
+	new aStrings[5][eStrings];
+
+	SplitStrings_IndexesEnum(string_to_split, "|", aStrings, "s[3]-s[3]s[3]", "s[3]s[3]", sscanf_format);
+
+	for(new i = 0; i < sizeof(aStrings); i ++)
+	{
+		printf("i: %d - %s", i, aStrings[i][string_1]);
+		printf("i: %d - %s", i, aStrings[i][string_2]);
+		printf("i: %d - %s", i, aStrings[i][string_3]);
+	}*/
+
+	// ***** Split_Enum *****
+
+	/*new string_to_split[] = "hi there|5|20.0", sscanf_format[16];
+
+	enum eArray
+	{
+		string_1[9],
+		integer_1,
+		integer_2,
+		Float:float_1
+	};
+
+	new aArray[eArray];
+
+	Split_Enum(string_to_split, "|", aArray, "s[9]-iif", sscanf_format);
+
+	printf("%s", aArray[string_1]);
+	printf("%d", aArray[integer_1]);
+	printf("%d", aArray[integer_2]);
+	printf("%.2f", aArray[float_1]);*/
+
+	// ***** SplitStrings_IndexesEnum *****
+
+	/*new string_to_split[] = "hi there|5|20.0|hai|20|50.0|yo yo|5000|1.0", sscanf_format[38];
+
+	enum eArray
+	{
+		string_1[9],
+		integer_1,
+		integer_2,
+		Float:float_1
+	};
+
+	new aArray[3][eArray];
+
+	Split_IndexesEnum(string_to_split, "|", aArray, "s[9]-iif", "s[9]if", sscanf_format);
+
+	for(new i = 0; i < sizeof(aArray); i ++)
+	{
+		printf("i: %d - %s", i, aArray[i][string_1]);
+		printf("i: %d - %d", i, aArray[i][integer_1]);
+		printf("i: %d - %d", i, aArray[i][integer_2]);
+		printf("i: %d - %.2f", i, aArray[i][float_1]);
+	}*/
 }
 
 // ** CALLBACKS
 
 public OnGameModeInit()
 {
-	// ** 1D EXAMPLES
-
-	new string_1[] = "11|22|33|44|55|66", integers_1[6];
-	for(new i = 0, j = split_integers(string_1, "|", integers_1); i < j; i ++)
-	{
-		printf("[1D split_integers] Integer #%d: %d", (i + 1), integers_1[i]);
-	}
-
-	print(" ");
-
-	new string_2[] = "11.500000|22.500000|33.500000|44.500000|55.500000|66.500000", Float:floats_1[6];
-	for(new i = 0, j = split_floats(string_2, "|", floats_1); i < j; i ++)
-	{
-		printf("[1D split_floats] Float #%d: %f", (i + 1), floats_1[i]);
-	}
-
-	print(" ");
-
-	new string_3[] = "hello there|hai|what's up?|car|cat|dog", strings_1[6][12];
-	for(new i = 0, j = split_strings(string_3, "|", strings_1); i < j; i ++)
-	{
-		printf("[1D split_strings] String #%d: %s", (i + 1), strings_1[i]);
-	}
-
-	print(" ");
-
-	enum eData_1
-	{
-		data_1_int_1,
-		data_1_int_2
-	}
-
-	#pragma unused data_1_int_1
-	#pragma unused data_1_int_2
-
-	new string_4[] = "11|22", integers_2[eData_1];
-	for(new i = 0, j = split_integers_enum(string_4, "|", integers_2); i < j; i ++)
-	{
-		printf("[1D split_integers_enum] Integer #%d: %d", (i + 1), integers_2[eData_1:i]);
-	}
-
-	print(" ");
-
-	enum eData_2
-	{
-		Float:data_2_float_1,
-		Float:data_2_float_2
-	}
-
-	#pragma unused data_2_float_1
-	#pragma unused data_2_float_2
-
-	new string_5[] = "11.500000|22.500000", Float:floats_2[eData_2];
-	for(new i = 0, j = split_floats_enum(string_5, "|", floats_2); i < j; i ++)
-	{
-		printf("[1D split_floats_enum] Float #%d: %f", (i + 1), floats_2[eData_2:i]);
-	}
-
-	print(" ");
-
-	new string_6[] = "hey mate|50.20|20|potato|5|20.20", integers_3[2], Float:floats_3[2], strings_3[2][12], count_1[3];
-	split(string_6, "|", integers_3, floats_3, strings_3, count_1);
-
-	for(new i = 0; i < count_1[0]; i ++)
-	{
-		printf("[1D split] Integer #%d: %d", (i + 1), integers_3[i]);
-	}
-
-	for(new i = 0; i < count_1[1]; i ++)
-	{
-		printf("[1D split] Float #%d: %f", (i + 1), floats_3[i]);
-	}
-
-	for(new i = 0; i < count_1[2]; i ++)
-	{
-		printf("[1D split] String #%d: %s", (i + 1), strings_3[i]);
-	}
-
-	// ** 2D EXAMPLES
-
-	print(" ");
-
-	new string_7[] = "11|22|33|44|55|66", integers_4[3][6], k_1 = split_integers(string_7, "|", integers_4[1]);
-	for(new i = 0; i < sizeof(integers_4); i ++)
-	{
-		for(new j = 0; j < k_1; j ++)
-		{
-			printf("[2D split_integers] 1D: %d, 2D: Integer #%d: %d", (i + 1), (j + 1), integers_4[i][j]);
-		}
-	}
-
-	print(" ");
-
-	new string_8[] = "11.500000|22.500000|33.500000|44.500000|55.500000|66.500000", Float:floats_4[3][6], k_2 = split_floats(string_8, "|", floats_4[2]);
-	for(new i = 0; i < sizeof(floats_4); i ++)
-	{
-		for(new j = 0; j < k_2; j ++)
-		{
-			printf("[2D split_floats] 1D: %d, 2D: Float #%d: %f", (i + 1), (j + 1), floats_4[i][j]);
-		}
-	}
-
-	print(" ");
-
-	new string_9[] = "hello there|hai|what's up?|car|cat|dog", strings_4[3][6][12], k_3 = split_strings(string_9, "|", strings_4[0]);
-	for(new i = 0; i < sizeof(strings_4); i ++)
-	{
-		for(new j = 0; j < k_3; j ++)
-		{
-			printf("[2D split_strings] 1D: %d, 2D: String #%d: %s", (i + 1), (j + 1), strings_4[i][j]);
-		}
-	}
-
-	print(" ");
-
-	new string_10[] = "hey mate|50.20|20|potato|5|20.20", integers_5[3][2], Float:floats_5[3][2], strings_5[3][2][12], count_2[3];
-	split(string_10, "|", integers_5[0], floats_5[1], strings_5[2], count_2);
-
-	for(new i = 0; i < sizeof(integers_5); i ++)
-	{
-		for(new j = 0; j < count_2[0]; j ++)
-		{
-			printf("[2D split] 1D: %d, 2D: Integer #%d: %d", (i + 1), (j + 1), integers_5[i][j]);
-		}
-	}
-
-	for(new i = 0; i < sizeof(floats_5); i ++)
-	{
-		for(new j = 0; j < count_2[1]; j ++)
-		{
-			printf("[2D split] 1D: %d, 2D: Float #%d: %f", (i + 1), (j + 1), floats_5[i][j]);
-		}
-	}
-
-	for(new i = 0; i < sizeof(strings_5); i ++)
-	{
-		for(new j = 0; j < count_2[1]; j ++)
-		{
-			printf("[2D split] 1D: %d, 2D: String #%d: %s", (i + 1), (j + 1), strings_5[i][j]);
-		}
-	}
-
-	print(" ");
-
-	enum eData_3
-	{
-		data_3_int_1,
-		data_3_int_2
-	}
-
-	#pragma unused data_3_int_1
-	#pragma unused data_3_int_2
-
-	new string_11[] = "11|22", integers_6[3][eData_3], k_4 = split_integers_enum(string_11, "|", integers_6[1]);
-	for(new i = 0; i < sizeof(integers_6); i ++)
-	{
-		for(new j = 0; j < k_4; j ++)
-		{
-			printf("[2D split_integers_enum] 1D: %d, 2D: Integer #%d: %d", (i + 1), (j + 1), integers_6[i][eData_3:j]);
-		}
-	}
-
-	print(" ");
-
-	enum eData_4
-	{
-		Float:data_4_int_1,
-		Float:data_4_int_2
-	}
-
-	#pragma unused data_4_int_1
-	#pragma unused data_4_int_2
-
-	new string_12[] = "11.500000|22.500000", Float:floats_6[3][eData_4], k_5 = split_floats_enum(string_12, "|", floats_6[0]);
-	for(new i = 0; i < sizeof(floats_6); i ++)
-	{
-		for(new j = 0; j < k_5; j ++)
-		{
-			printf("[2D split_floats_enum] 1D: %d, 2D: Float #%d: %f", (i + 1), (j + 1), floats_6[i][eData_4:j]);
-		}
-	}
-
-	// ** 3D EXAMPLES
-
-	// *** Follow the 2D examples to use these functions with 3D arrays
 	return 1;
 }
 

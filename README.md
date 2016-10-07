@@ -6,18 +6,55 @@ This include will facilitate the operation of splitting strings, in a dynamic wa
 
 The code above is obviously not dynamic. But with this include, that becomes (which is dynamic):
 
-	new integers[MAX_INVENTORY_ITEMS], count[2];
-	for(new i = 0, j = split_integers(item_info, "|", integers); i < j; i += sizeof(aInventory[][]))
-	{
-		for(new k = 0; k < sizeof(aInventory[][]); k ++)
-		{
-			aInventory[playerid][count[0]][eInventory:k] = integers[count[1] ++];
-		}
+	new sscanf_format[30];
+	SplitIntegers_IndexesEnum(string_to_split, "|", aInventory[playerid], "ii", "ii", sscanf_format);
 
-		count[0] ++;
+Test code (simulating what's above):
+
+	new string_to_split[] = "5|2|3|5|7|8|2|2|3|4|5|6|77|12|1|2|55|2|3|8", sscanf_format[30];
+
+	enum eInventory
+	{
+		inventory_item_id,
+		inventory_item_extra
+	};
+
+	new aInventory[MAX_PLAYERS][10][eInventory];
+
+	SplitIntegers_IndexesEnum(string_to_split, "|", aInventory[0], "ii", "ii", sscanf_format);
+
+	for(new i = 0; i < sizeof(aInventory[]); i ++)
+	{
+		for(new j = 0; j < _:eInventory; j ++)
+		{
+			printf("i: %d, j: %d - %d", i, j, aInventory[0][i][eInventory:j]);
+		}
 	}
 
-That's just one way of converting that specific example to be dynamic, there are plenty more. It also has many other uses (such as loading server settings using the enumerator functions, or if necessary the global split function). Please check the example script to see the other functions this include has, and examples of each one.
+In case your enumerator has elements in between (for this example, let's put one element in between the enumerator that we used previously - note that "ii" in the example above changes to "i-ii"), you can do:
+
+	new string_to_split[] = "5|2|3|5|7|8|2|2|3|4|5|6|77|12|1|2|55|2|3|8", sscanf_format[32];
+
+	enum eInventory
+	{
+		inventory_item_id,
+		inventory_item_extra_1,
+		inventory_item_extra_2
+	};
+
+	new aInventory[MAX_PLAYERS][10][eInventory];
+
+	SplitIntegers_IndexesEnum(string_to_split, "|", aInventory[0], "i-ii", "ii", sscanf_format);
+
+	for(new i = 0; i < sizeof(aInventory[]); i ++)
+	{
+		for(new j = 0; j < _:eInventory; j ++)
+		{
+			printf("i: %d, j: %d - %d", i, j, aInventory[0][i][eInventory:j]);
+		}
+	}
+
+That's just one example, and the use of one function in this include. It has many other uses and plenty more useful functions.
 
 The example script (dynamic_string_splitter_example.amx) and the include (dynamic_string_splitter.inc) requires:
 * SSCANF: http://forum.sa-mp.com/showthread.php?t=602923
