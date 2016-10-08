@@ -56,5 +56,5 @@ In case your enumerator has elements in between (for this example, let's put one
 
 That's just one example, and the use of one function in this include. It has many other uses and plenty more useful functions.
 
-The example script (dynamic_string_splitter_example.amx) and the include (dynamic_string_splitter.inc) requires:
+The example script (dynamic_string_splitter_example.pwn) and the include (dynamic_string_splitter.inc) requires:
 * SSCANF: http://forum.sa-mp.com/showthread.php?t=602923
